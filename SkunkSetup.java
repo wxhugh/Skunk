@@ -9,6 +9,24 @@ class SkunkSetup {
 	int score = 0;
 	int roundScore = 0;
 	boolean skunk = false;
+	String skunky = ("1111111111111111111111111111111111111111111````111111111111111111111" + "\n" +
+"111111111111111111111111111111111111111``      `11111111111111111111" + "\n" +
+"111111111111111111111111111111111111` aaa@      11111111111111111111" + "\n" +
+"1111111111111111111111111111111111`a@@@@`  a    `1111111111111111111" + "\n" +  
+"11111111111111111111111111111111` `@` @  a@@`a   1111111111111111111" + "\n" +
+"11111111111111111111111111111111,  @ @@ @@@ ` @  1111111111111111111" + "\n" + 
+"111111111111111111111111```     ``a  ``a a@@a`   1111111111111111111" + "\n" +
+"111111111111111111111`  a@a@@@aa@@`  a@@@        1111111111111111111" + "\n" +
+"1111111111111111111` aa#` ` ``` `   @@@@@@     ,11111111111111111111" + "\n" +
+"111111111111111111` @`   aa@@@@@@@@a ````    11111111111111111111111" + "\n" +
+"111111111111111111 @  aaa@@@@@@@@@`          `111111111111111111111P" + "\n" +
+"111111111111111111 @@@@``@   `   `            `11111111111111111111h" + "\n" +
+"111111111111111111 @@@                  .      `1111111111111111111o" + "\n" +
+"111111111111111@@@@@@                    .         `111111111111111e" + "\n" +
+"11111111111@@@@@@@@`                 `  ,1,        ,111111111111111n" + "\n" +
+"11111111@@@@@@ @  1,               ,`,,11111....:::::::111111111111i" + "\n" +
+"111111@@@@@@@@`  111,             .11111111:::::::::::::.1111111111x" + "\n" +
+"11111@@@@@@@ @  11111.               `111.:::::::::::::::.1111111111");
 	public String playerSetup() {
 		System.out.println("What is your name?");
 		player = answer.next();
@@ -29,15 +47,23 @@ class SkunkSetup {
 					skunk = true;
 					score = 0;
 					roundScore = 0;
-
+					System.out.println("You got skunk!");
+					System.out.println(skunky);
+					break;
 				}
 				if (die1 == 3 && die2 == 5 || die1 == 5 && die2 == 3) {
 					skunk = true;
 					roundScore = 0;
+					System.out.println("You got skunk!");
+					System.out.println(skunky);
+					break;
 				} 
 				if (die1 == 2 && die2 == 6 || die1 == 6 && die2 == 2) {
 					skunk = true;
 					roundScore = 0;
+					System.out.println("You got skunk!");
+					System.out.println(skunky);
+					break;
 				}
 				System.out.println("Your current score for round " + i + " is " + roundScore + ".");
 				System.out.println("Do you want to roll again?");
@@ -53,7 +79,7 @@ class SkunkSetup {
 			System.out.println("Your score after round " + i + " is " + score + ".");
 			skunk = false;		
 		}
-		System.out.println("Your final score is" + score + ".");
+		System.out.println("Your final score is " + score + ".");
 		return score;
 	} 
 
