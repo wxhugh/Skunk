@@ -4,10 +4,16 @@ class SkunkSetup {
 	Random dice = new Random();
 	Scanner answer = new Scanner(System.in);
 	String player = "";
+	String[] players;
+	int playNum = 0;
 	int die1 = 0;
 	int die2 = 0;
 	int score = 0;
+	int[] multiScore;
+	int[] multiRound; 
 	int roundScore = 0;
+	int rollers = 0;
+	String[] standing;
 	boolean skunk = false;
 	String skunky = ("1111111111111111111111111111111111111111111````111111111111111111111" + "\n" +
 "111111111111111111111111111111111111111``      `11111111111111111111" + "\n" +
@@ -28,8 +34,20 @@ class SkunkSetup {
 "111111@@@@@@@@`  111,             .11111111:::::::::::::.1111111111x" + "\n" +
 "11111@@@@@@@ @  11111.               `111.:::::::::::::::.1111111111");
 	public String playerSetup() {
-		System.out.println("What is your name?");
-		player = answer.next();
+		System.out.println("How many people are playing?");
+		playNum = answer.nextInt();
+		players = new String[playNum];
+		standing = new String[playNum];
+		multiScore = new int[playNum];
+		multiRound = new int[playNum];
+		for (int i = 0; i < playNum; i++) {
+			System.out.println("What is your name?");
+			player = answer.next();
+			players[i] = player;
+			standing[i] = "yes";
+			multiScore[i] = 0;
+			multiRound[i] = 0;
+		}
 		return player;
 	}
 	public int roll() {
@@ -37,12 +55,16 @@ class SkunkSetup {
 		String rolls = "";
 		System.out.println("How many rounds do you want to play?");
 		rounds = answer.nextInt();
-		for (int i = 1; i <= rounds; i ++) {
+		for (int r = 1; r <= rounds; r++) {
 			while (skunk == false) {
+				rollers = 0;
+				for (int i = 0; i < players.length; i++) {
+					standing[i] = "yes";
+				}
 				die1 = dice.nextInt(7 - 1) + 1;
 				die2 = dice.nextInt(7 - 1) + 1;
 				System.out.println("die1 is " + die1 + " and die2 is " + die2);
-				roundScore = roundScore + die1 + die2;
+				//roundScore = roundScore + die1 + die2;
 				if (die1 == 1 && die2 == 1) {
 					skunk = true;
 					score = 0;
@@ -65,27 +87,51 @@ class SkunkSetup {
 					System.out.println(skunky);
 					break;
 				}
-				System.out.println("Your current score for round " + i + " is " + roundScore + ".");
-				System.out.println("Do you want to roll again?");
-				rolls = answer.next();
+				for (int i = 0; i < players.length; i++) {
+						roundScore = die1 + die2;
+						if (standing[i].equals("yes")) {
+							multiRound[i] += roundScore;
+						} 
+						System.out.println(players[i] + " your current score for round " + r + " is " + multiRound[i] + ".");
+				}
+				for (int i = 0; i < players.length; i++) {
+					if (standing[i].equals("yes")) {
+						System.out.println(players[i] + " do you want to roll again?");
+						standing[i] = answer.next();
+					}
+						if (standing[i].equals("no")) {
+							rollers++;
+						} 
+						if (rollers == players.length) {
+							skunk = true;
+						}
+				}
+				/*rolls = answer.next();
 				if (rolls.equals("yes")) {
 					skunk = false;
 				} 
 				if (rolls.equals("no")) {
 					skunk = true;
-				} 
+				} */
 			}
-			score += roundScore;
-			System.out.println("Your score after round " + i + " is " + score + ".");
+			for (int i = 0; i < players.length; i++) {
+				multiScore[i] += multiRound[i];
+				System.out.println(players[i] + " your total score after round " + r + " is " + multiScore[i] + ".");
+			}
+			/*score += roundScore;
+			System.out.println(" your score after round " + i + " is " + score + ".");
+			*/
 			skunk = false;		
 		}
-		System.out.println("Your final score is " + score + ".");
+		for (int i = 0; i < players.length; i++) {
+			System.out.println(players[i] + " your final score is " + multiScore[i] + ".");
+		}
 		return score;
 	} 
 
 	
 	public String toString() {
-		return (player + " you are the player.");
+		return (Arrays.toString(players) + " are the players.");
 		 
 	}
 }
