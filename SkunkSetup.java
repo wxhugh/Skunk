@@ -56,11 +56,12 @@ class SkunkSetup {
 		System.out.println("How many rounds do you want to play?");
 		rounds = answer.nextInt();
 		for (int r = 1; r <= rounds; r++) {
+			for (int i = 0; i < players.length; i++) {
+					standing[i] = "yes";
+					multiRound[i] = 0;
+				}
 			while (skunk == false) {
 				rollers = 0;
-				for (int i = 0; i < players.length; i++) {
-					standing[i] = "yes";
-				}
 				die1 = dice.nextInt(7 - 1) + 1;
 				die2 = dice.nextInt(7 - 1) + 1;
 				System.out.println("die1 is " + die1 + " and die2 is " + die2);
@@ -71,6 +72,12 @@ class SkunkSetup {
 					roundScore = 0;
 					System.out.println("You got skunk!");
 					System.out.println(skunky);
+					for (int i = 0; i < players.length; i++) {
+						if (standing[i].equals("yes")) {
+							multiScore[i] = 0;
+							multiRound[i] = 0;
+						}
+					}
 					break;
 				}
 				if (die1 == 3 && die2 == 5 || die1 == 5 && die2 == 3) {
@@ -78,6 +85,11 @@ class SkunkSetup {
 					roundScore = 0;
 					System.out.println("You got skunk!");
 					System.out.println(skunky);
+					for (int i = 0; i < players.length; i++) {
+						if (standing[i].equals("yes")) {
+							multiRound[i] = 0;
+						}
+					}
 					break;
 				} 
 				if (die1 == 2 && die2 == 6 || die1 == 6 && die2 == 2) {
@@ -85,6 +97,11 @@ class SkunkSetup {
 					roundScore = 0;
 					System.out.println("You got skunk!");
 					System.out.println(skunky);
+					for (int i = 0; i < players.length; i++) {
+						if (standing[i].equals("yes")) {
+							multiRound[i] = 0;
+						}
+					}
 					break;
 				}
 				for (int i = 0; i < players.length; i++) {
